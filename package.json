@@ -1,0 +1,30 @@
+{
+  "name": "server-with-ts-mongoose",
+  "version": "1.0.0",
+  "description": "Practice Mongoose & TypeScript",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.ts"
+  },
+  "keywords": [
+    "ts",
+    "mongoose",
+    "express",
+    "server",
+    "test"
+  ],
+  "author": "nhb",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.2.0",
+    "nodemon": "^3.1.4",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.5.4"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}
