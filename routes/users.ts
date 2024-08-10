@@ -42,4 +42,27 @@ router.post("/", async (req: Request, res: Response) => {
 	}
 });
 
+// get all users
+router.get("/", async (req: Request, res: Response) => {
+	try {
+		const result = await User.find();
+
+		return res.status(200).send(result);
+	} catch (error) {
+		if (error instanceof Error) {
+			console.error(error.message);
+			res.status(400).send({
+				success: false,
+				message: error.message,
+			});
+		} else {
+			console.error("An Unknown Error Occurred!");
+			res.status(500).send({
+				success: false,
+				message: "Internal Server Error!",
+			});
+		}
+	}
+});
+
 export default router;
