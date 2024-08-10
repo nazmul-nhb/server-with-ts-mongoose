@@ -40,17 +40,20 @@ app.use(
 );
 
 // run the server along with DB
-const run = async () => {
-	await connectDB();
-
-	app.listen(port, () => {
-		console.log(`Server is Running on Port: ${port}`);
-	});
-};
-
-run().catch(console.dir);
-
-// app.listen(port, async () => {
-// 	console.log(`Server is Running on Port: ${port}`);
+// const run = async () => {
 // 	await connectDB();
-// });
+
+// 	app.listen(port, () => {
+// 		console.log(`Server is Running on Port: ${port}`);
+// 	});
+// };
+
+// run().catch(console.dir);
+
+app.listen(port, async () => {
+    await connectDB();
+    
+	console.log(`Server is Running on Port: ${port}`);
+});
+
+export default app;
