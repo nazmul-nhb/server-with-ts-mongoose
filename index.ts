@@ -51,8 +51,8 @@ app.use(
 // run().catch(console.dir);
 
 app.listen(port, async () => {
-    await connectDB();
-    
+	await connectDB();
+
 	console.log(`Server is Running on Port: ${port}`);
 });
 
