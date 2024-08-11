@@ -2,7 +2,7 @@
 	"name": "server-with-ts-mongoose",
 	"version": "1.0.0",
 	"description": "Practice Mongoose & TypeScript",
-	"main": "index.js",
+	"main": "index.ts",
 	"scripts": {
 		"start": "nodemon index.ts"	},
 	"keywords": [
