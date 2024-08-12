@@ -7,53 +7,63 @@ import userRoutes from "./routes/users";
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
-
-app.use("/users", userRoutes);
-
-interface ErrorObject extends Error {
-	status?: number;
-}
-
-app.get("/", async (req: Request, res: Response) => {
-	res.send("Test Server is Running!");
-});
-
-// error handler for 404
-app.use((req: Request, res: Response, next: Function) => {
-	const error: ErrorObject = new Error("Requested URL Not Found!");
-	error.status = 404;
-	next(error);
-});
-
-// final error handler
-app.use(
-	(error: ErrorObject, req: Request, res: Response, next: NextFunction) => {
-		console.error(error);
-		res.status(error.status || 500).send({
-			message: error.message || "Internal Server Error!",
+(async () => {
+	try {
+		// connect to db
+		await connectDB();
+	
+		// middlewares
+		app.use(cors());
+		app.use(express.json());
+	
+		app.use("/users", userRoutes);
+	
+		interface ErrorObject extends Error {
+			status?: number;
+		}
+	
+		// root route
+		app.get("/", async (req: Request, res: Response) => {
+			res.send("Test Server is Running!");
 		});
+	
+		// error handler for 404
+		app.use((req: Request, res: Response, next: Function) => {
+			const error: ErrorObject = new Error("Requested URL Not Found!");
+			error.status = 404;
+			next(error);
+		});
+	
+		// final error handler
+		app.use(
+			(
+				error: ErrorObject,
+				req: Request,
+				res: Response,
+				next: NextFunction
+			) => {
+				console.error(error);
+				res.status(error.status || 500).send({
+					message: error.message || "Internal Server Error!",
+				});
+			}
+		);
+	
+		// run the server
+		app.listen(port, () => {
+			console.log(`Server is Running on Port: ${port}`);
+		});
+	} catch (error) {
+		if (error instanceof Error) {
+			console.error(error.message);
+		} else {
+			console.error("An Unknown Error Occurred!");
+		}
+		console.log("Failed to Connect to DB!");
+		process.exit(1);
 	}
-);
-
-// run the server along with DB
-// const run = async () => {
-// 	await connectDB();
-
-// 	app.listen(port, () => {
-// 		console.log(`Server is Running on Port: ${port}`);
-// 	});
-// };
-
-// run().catch(console.dir);
-
-app.listen(port, async () => {
-	await connectDB();
-
-	console.log(`Server is Running on Port: ${port}`);
-});
+})();
 
 export default app;

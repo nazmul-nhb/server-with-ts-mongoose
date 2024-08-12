@@ -45,7 +45,7 @@ router.post("/", async (req: Request, res: Response) => {
 // get all users
 router.get("/", async (req: Request, res: Response) => {
 	try {
-		const result = await User.find();
+		const result = await User.find({});
 
 		return res.status(200).send(result);
 	} catch (error) {

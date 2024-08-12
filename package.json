@@ -4,7 +4,8 @@
 	"description": "Practice Mongoose & TypeScript",
 	"main": "index.ts",
 	"scripts": {
-		"start": "nodemon index.ts"	},
+		"start": "nodemon index.ts"
+	},
 	"keywords": [
 		"ts",
 		"mongoose",
