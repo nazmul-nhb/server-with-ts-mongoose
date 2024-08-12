@@ -16,6 +16,6 @@ export const connectDB = async () => {
 			console.error("An Unknown Error Occurred!");
 		}
 		console.log("DB is Not Connected!");
-		process.exit(1);
+		// process.exit(1);
 	}
 };

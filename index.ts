@@ -58,7 +58,7 @@ const port = process.env.PORT || 3000;
 		});
 	} catch (error) {
 		console.error("Failed to Start the Server: ", error);
-		process.exit(1);
+		// process.exit(1);
 	}
 })();
 
