@@ -13,29 +13,30 @@ const port = process.env.PORT || 3000;
 	try {
 		// connect to db
 		await connectDB();
-	
+
 		// middlewares
 		app.use(cors());
 		app.use(express.json());
-	
+
+		// routes
 		app.use("/users", userRoutes);
-	
+
 		interface ErrorObject extends Error {
 			status?: number;
 		}
-	
+
 		// root route
 		app.get("/", async (req: Request, res: Response) => {
 			res.send("Test Server is Running!");
 		});
-	
+
 		// error handler for 404
-		app.use((req: Request, res: Response, next: Function) => {
+		app.use((req: Request, res: Response, next: NextFunction) => {
 			const error: ErrorObject = new Error("Requested URL Not Found!");
 			error.status = 404;
 			next(error);
 		});
-	
+
 		// final error handler
 		app.use(
 			(
@@ -50,18 +51,13 @@ const port = process.env.PORT || 3000;
 				});
 			}
 		);
-	
+
 		// run the server
 		app.listen(port, () => {
 			console.log(`Server is Running on Port: ${port}`);
 		});
 	} catch (error) {
-		if (error instanceof Error) {
-			console.error(error.message);
-		} else {
-			console.error("An Unknown Error Occurred!");
-		}
-		console.log("Failed to Connect to DB!");
+		console.error("Failed to Start the Server: ", error);
 		process.exit(1);
 	}
 })();
